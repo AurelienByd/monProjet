@@ -16,6 +16,23 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ArtistRepository extends ServiceEntityRepository
 {
+    public function getSomeArtists($name)
+{
+        //$name est un paramètre qui pour cet exemple a comme valeur "Neil";
+
+        $qb = $this->createQueryBuilder('a');
+        $qb
+            ->andWhere('a.name like :name') //le `placeholder, comme en PDO!
+            ->setParameter('name', '%'.$name.'%')
+            ->orderBy('a.id', 'ASC')
+            ->setMaxResults(10);
+            // ->getQuery();
+
+        $artists = $qb->getQuery()->getResult();
+        // dd($artists);
+        return $artists;
+    }  
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Artist::class);

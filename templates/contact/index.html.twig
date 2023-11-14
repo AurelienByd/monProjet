@@ -19,26 +19,7 @@
         {# permet de dégogger, afficher les informations #}
     {# {{dump(form)}} #}
 
-        <div class="col-9 mx-auto mb-2">
-            {{ form_row(form.message) }}
-        </div>
-        <div class="col-9 mx-auto mb-2 mt-4">
-            {{ form_label(form.objet, "Mon libellé objet a été modifié") }}
-            {{ form_widget(form.objet) }}
-            {{ form_errors(form.objet) }}
-        </div>
-        <div class="col-9 mx-auto mb-2">
-            {{ form_label(form.nom, "Mon libellé nom a été modifié") }}
-            {{ form_widget(form.nom) }}
-            {{ form_errors(form.nom) }}
-        </div>
-        <div class="col-9 mx-auto mb-2">
-            {{ form_widget(form.email) }}
-            {{ form_help(form.email) }}
-            {{ form_label(form.email) }}
-            {{ form_errors(form.email) }}
-        </div>
-        
+
 
     </div>
     {{ form_end(form) }}

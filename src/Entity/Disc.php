@@ -25,6 +25,9 @@ class Disc
     #[ORM\ManyToOne(inversedBy: 'discs')]
     private ?Artist $artist = null;
 
+    #[ORM\Column]
+    private ?int $year = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,6 +84,18 @@ class Disc
     public function setArtist(?Artist $artist): static
     {
         $this->artist = $artist;
+
+        return $this;
+    }
+
+    public function getYear(): ?int
+    {
+        return $this->year;
+    }
+
+    public function setYear(int $year): static
+    {
+        $this->year = $year;
 
         return $this;
     }

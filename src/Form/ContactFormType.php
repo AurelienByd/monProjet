@@ -38,8 +38,7 @@ class ContactFormType extends AbstractType
             // donnant la valeur false à l'attribut required
             ->add('message', TextareaType::class, [
                 'label' => 'Votre message',
-                'required' => false,
-                'disabled' => true
+                'required' => false
                 ]
             )
 
