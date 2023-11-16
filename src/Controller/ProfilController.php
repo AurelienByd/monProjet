@@ -2,31 +2,27 @@
 
 namespace App\Controller;
 
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-// class ProfilController extends AbstractController
-// {
-//     #[Route('/profil', name: 'app_profil')]
-//     public function index(): Response
-//     {
-//         $info = ['Loper', 'Dave', 'daveloper@code.dom', '01/01/1970'];
+class ProfilController extends AbstractController
+{
+    private $userRepo;
 
-//         return $this->render('profil/index.html.twig', [
-//             'informations' => $info
-//         ]);
-//     }
-// }
-
-// Pour passer un tableau associatif du contrôleur vers la vue, le procédé reste le même, seul la méthode d'affichage va changer :
-
-    class ProfilController extends AbstractController
+    public function __construct(UtilisateurRepository $userRepo){
+        $this->userRepo = $userRepo;
+    }
+    #[Route('/profil', name: 'app_profil')]
+    public function index(): Response
     {
-        #[Route('/profil', name: 'app_profil')]
-        public function index(): Response
-        {
-            $info = ['lastname' => 'Loper', 'firstname' => 'Dave', 'email' => 'daveloper@code.dom', 'birthdate' => '01/01/1970'];
+        // ICI on récupère l'identifiant unique de l'utilisateur connecté
+        $identifiant = $this->getUser()->getUserIdentifier(); 
+        if($identifiant){
+            // ICI on vérifie qu'on a bien un utilisateur dans la base de donnée qui a ce mail 
+            $info = $this->userRepo->findOneBy(["email" =>$identifiant]);
+        }
     
             return $this->render('profil/index.html.twig', [
                 'informations' => $info
